@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import {Route, Routes, BrowserRouter } from 'react-router-dom';
+import AuthRoute from './components/authRoute';
+import PrivateRoute from './components/privateRoute';
+import 'antd/dist/antd.css';
+import Login from './pages/login';
+import ModalApp from './components/modal';
+import SignUp from './pages/signup';
+import Home from './pages/home';
+import News from './pages/news';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path='/' element={
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        } />
+        <Route exact path='/news' element={
+          // <PrivateRoute>
+            <News/>
+          // </PrivateRoute>
+        } />
+        <Route exact path='/login' element={
+          <AuthRoute>
+            <Login />
+          </AuthRoute>
+        } />
+        <Route exact path='/signup' element={
+          <AuthRoute>
+            <SignUp />
+          </AuthRoute>
+        } />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
