@@ -80,8 +80,8 @@ export default function Home() {
             <div><Input countries={countries} onSubmit={setCountry} /></div>
             {/* {<Lists data={countries} />} */}
             <Tables countries={countries}/>
+            <BarCharts/>
           </Content>
-          <BarCharts/>
           <Footer>{country}</Footer>
         </Layout>
       </div>

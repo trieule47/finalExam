@@ -1,20 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout, Menu, Switch, Row, Col } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { MenuOutlined } from '@ant-design/icons';
+import i18n from '../../translation/i18n';
 
-const { Header, Footer, Sider, Content } = Layout;
-
-export default function Menus() {
+const Menus= React.memo(()=> {
     const [theme, setTheme] = useState('dark');
-    const [language, setLanguage] = useState('VI');
+    const [language, setLanguage] = useState('vi');
     const navigate = useNavigate();
     const [loading, setLoading] = useState('true');
+
+    useEffect(()=>{
+        i18n.changeLanguage(language);
+    },[language])
+
+    useEffect(()=>{
+        const Lg = localStorage.getItem('language');
+        if(Lg) setLanguage(Lg);
+    })
+    
     const items = [
         { label: [<Col style={{ width: 300, margin: 0, padding: 0 }}><h1>logo</h1></Col>], key: 'item-0', onClick: () => navigate('/') },
         { label: 'Home', key: 'item-1', onClick: () => navigate('/') },
         { label: 'News', key: 'item-2', onClick: () => navigate('/news') },
-        { label: `${loading == false ? 'login' : 'logout'}`, key: 'item-3', onClick: () => navigate(`${loading == false ? '/login' : '/logout'}`) }, // which is required
+        { label: `${loading === false ? 'login' : 'logout'}`, key: 'item-3', onClick: () => navigate(`${loading === false ? '/login' : '/logout'}`) }, // which is required
         {
             label: [<Switch
                 checked={theme === 'dark'}
@@ -27,10 +36,10 @@ export default function Menus() {
         },
         {
             label: [<Switch
-                checked={language === 'VI'}
+                checked={language === 'vi'}
                 onChange={(language) => changeLanguage(language)}
-                checkedChildren="EN"
-                unCheckedChildren="VI"
+                checkedChildren="vi"
+                unCheckedChildren="en"
                 style={{ width: 70 }}
             />],
             key: 'language',
@@ -43,7 +52,8 @@ export default function Menus() {
 
 
     const changeLanguage = (value) => {
-        setLanguage(value ? 'VI' : 'EN');
+        setLanguage(value ? 'vi' : 'en');
+        localStorage.setItem('language', value ? 'vi' : 'en');
     };
 
     return (
@@ -57,4 +67,6 @@ export default function Menus() {
             />
         </div>
     )
-}
+});
+
+export default Menus;
