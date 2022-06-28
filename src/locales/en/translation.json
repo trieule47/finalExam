@@ -1,0 +1,22 @@
+{
+    "content": {
+        "functional": "Functional",
+        "class": "Class",
+        "text": "This is text",
+        "home": "Home",
+        "news": "News",
+        "login": "Login",
+        "logout": "Logout",
+        "signup": "Sign up",
+        "country": "country",
+        "confirmed": "Confirmed",
+        "recovered": "Recovered",
+        "deaths": "Deaths",
+        "statsOverview": "Stats Overview",
+        "countriesAffected": "COUNTRIES AFFECTED",
+        "overview": "Overview",
+        "fatalityRate": "Fatality Rate",
+        "recoveryRate": "Recovery Rate",
+        "perOneMillion": "Per One Million"
+    }
+}

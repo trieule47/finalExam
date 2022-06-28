@@ -1,0 +1,23 @@
+{
+    "content": {
+        "functional": "Hàm",
+        "class": "Lớp",
+        "text": "Đây là văn bản",
+        "home": "Trang Chủ",
+        "news": "Tin Tức",
+        "login": "Đăng Nhập",
+        "logout": "Đăng Xuất",
+        "signup": "Đăng ký",
+        "country": "Quốc gia",
+        "confirmed": "Ca nhiểm",
+        "recovered": "Hồi phục",
+        "deaths": "Tử vong",
+        "statsOverview": "Biểu đồ tổng quan",
+        "countriesAffected": "QUỐC GIA VÀ VÙNG LÃNH THỔ BỊ ẢNH HƯỞNG",
+        "overview": "Tổng quan",
+        "fatalityRate": "Tỉ lệ tử vong",
+        "recoveryRate": "Tỉ lệ hồi phục",
+        "perOneMillion": "Trên 1 triệu người"
+    }
+}
+
