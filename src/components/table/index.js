@@ -1,36 +1,133 @@
 import { Button, Space, Table } from 'antd';
-import { useState } from 'react';
+import React, { useState } from 'react';
 const data = [
   {
     key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
+    country: 'John Brown',
+    cases: 3210,
+    recovered: 1234,
+    deaths: 10,
+    countryInfo:{
+      flag: "https://disease.sh/assets/img/flags/af.png"
+    }
   },
   {
     key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
+    country: 'Jim Green',
+    cases: 3210,
+    recovered: 1234,
+    deaths: 10,
+    countryInfo:{
+      flag: "https://disease.sh/assets/img/flags/af.png"
+    }
   },
   {
     key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
+    country: 'Joe Black',
+    cases: 33210,
+    recovered: 31234,
+    deaths: 100,
+    countryInfo:{
+      flag: "https://disease.sh/assets/img/flags/af.png"
+    }
   },
   {
     key: '4',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park',
+    country: 'Jim Red',
+    cases: 13210,
+    recovered: 21234,
+    deaths: 10,
+    countryInfo:{
+      flag: "https://disease.sh/assets/img/flags/af.png"
+    }
+  },
+  {
+    key: '5',
+    country: 'John Brown',
+    cases: 3210,
+    recovered: 1234,
+    deaths: 10,
+    countryInfo:{
+      flag: "https://disease.sh/assets/img/flags/af.png"
+    }
+  },
+  {
+    key: '6',
+    country: 'Jim Green',
+    cases: 3210,
+    recovered: 1234,
+    deaths: 10,
+    countryInfo:{
+      flag: "https://disease.sh/assets/img/flags/af.png"
+    }
+  },
+  {
+    key: '7',
+    country: 'Joe Black',
+    cases: 33210,
+    recovered: 31234,
+    deaths: 100,
+    countryInfo:{
+      flag: "https://disease.sh/assets/img/flags/af.png"
+    }
+  },
+  {
+    key: '8',
+    country: 'Jim Red',
+    cases: 13210,
+    recovered: 21234,
+    deaths: 10,
+    countryInfo:{
+      flag: "https://disease.sh/assets/img/flags/af.png"
+    }
+  },
+  {
+    key: '9',
+    country: 'John Brown',
+    cases: 3210,
+    recovered: 1234,
+    deaths: 10,
+    countryInfo:{
+      flag: "https://disease.sh/assets/img/flags/af.png"
+    }
+  },
+  {
+    key: '10',
+    country: 'Jim Green',
+    cases: 3210,
+    recovered: 1234,
+    deaths: 10,
+    countryInfo:{
+      flag: "https://disease.sh/assets/img/flags/af.png"
+    }
+  },
+  {
+    key: '11',
+    country: 'Joe Black',
+    cases: 33210,
+    recovered: 31234,
+    deaths: 100,
+    countryInfo:{
+      flag: "https://disease.sh/assets/img/flags/af.png"
+    }
+  },
+  {
+    key: '12',
+    country: 'Jim Red',
+    cases: 13210,
+    recovered: 21234,
+    deaths: 10,
+    countryInfo:{
+      flag: "https://disease.sh/assets/img/flags/af.png"
+    }
   },
 ];
 
-const Tables = () => {
+const Tables = React.memo((props) => {
   const [filteredInfo, setFilteredInfo] = useState({});
   const [sortedInfo, setSortedInfo] = useState({});
 
+  console.log('table genarate')
   const handleChange = (pagination, filters, sorter) => {
     console.log('Various parameters', pagination, filters, sorter);
     setFilteredInfo(filters);
@@ -46,62 +143,57 @@ const Tables = () => {
     setSortedInfo({});
   };
 
-  const setAgeSort = () => {
+  const setConfirmedSort = () => {
     setSortedInfo({
       order: 'descend',
-      columnKey: 'age',
+      columnKey: 'cases',
     });
   };
 
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      filters: [
-        {
-          text: 'Joe',
-          value: 'Joe',
-        },
-        {
-          text: 'Jim',
-          value: 'Jim',
-        },
-      ],
-      filteredValue: filteredInfo.name || null,
-      onFilter: (value, record) => record.name.includes(value),
-      sorter: (a, b) => a.name.length - b.name.length,
-      sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
+      title: 'Country',
+      dataIndex: 'country',
+      key: 'country',
+      // filteredValue: filteredInfo.country || null,
+      // sorter: (a, b) => a.country - b.country,
+      // sortOrder: sortedInfo.columnKey === 'country' ? sortedInfo.order : null,
+      ellipsis: true,
+      render(text, record) {
+        return {
+          children: <div>
+            <img src={record.countryInfo.flag} style={{ width: 20, height: 20 }}/>
+            {" "}{text}</div>
+        };
+      }
+    },
+    {
+      title: 'Confirmed',
+      dataIndex: 'cases',
+      key: 'cases',
+      filteredValue: filteredInfo.cases || null,
+      sorter: (a, b) => a.cases - b.cases,
+      sortOrder: sortedInfo.columnKey === 'cases' ? sortedInfo.order : null,
       ellipsis: true,
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-      sorter: (a, b) => a.age - b.age,
-      sortOrder: sortedInfo.columnKey === 'age' ? sortedInfo.order : null,
+      title: 'Recovered',
+      dataIndex: 'recovered',
+      key: 'recovered',
+      filteredValue: filteredInfo.recovered || null,
+      sorter: (a, b) => a.recovered - b.recovered,
+      sortOrder: sortedInfo.columnKey === 'recovered' ? sortedInfo.order : null,
       ellipsis: true,
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-      filters: [
-        {
-          text: 'London',
-          value: 'London',
-        },
-        {
-          text: 'New York',
-          value: 'New York',
-        },
-      ],
-      filteredValue: filteredInfo.address || null,
-      onFilter: (value, record) => record.address.includes(value),
-      sorter: (a, b) => a.address.length - b.address.length,
-      sortOrder: sortedInfo.columnKey === 'address' ? sortedInfo.order : null,
-      ellipsis: true,
-    },
+        title: 'Deaths',
+        dataIndex: 'deaths',
+        key: 'deaths', 
+        filteredValue: filteredInfo.deaths || null,
+        sorter: (a, b) => a.deaths - b.deaths,
+        sortOrder: sortedInfo.columnKey === 'deaths' ? sortedInfo.order : null,
+        ellipsis: true,
+      },
   ];
   return (
     <>
@@ -110,13 +202,13 @@ const Tables = () => {
           marginBottom: 16,
         }}
       >
-        <Button onClick={setAgeSort}>Sort age</Button>
+        <Button onClick={setConfirmedSort}>Sort age</Button>
         <Button onClick={clearFilters}>Clear filters</Button>
         <Button onClick={clearAll}>Clear filters and sorters</Button>
       </Space>
-      <Table columns={columns} dataSource={data} onChange={handleChange} />
+      <Table columns={columns} dataSource={props.countries} onChange={handleChange} />
     </>
   );
-};
+});
 
 export default Tables;

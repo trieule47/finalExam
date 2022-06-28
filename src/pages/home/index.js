@@ -8,12 +8,14 @@ import Spin from '../../components/loading';
 import Menus from '../../components/menu';
 import Input from '../../components/input';
 import Tables from '../../components/table';
+import BarCharts from '../../components/barchart';
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Option } = Select;
 
 export default function Home() {
   const [countries, setCountries] = useState('');
+  const [country, setCountry] = useState('');
   const [theme, setTheme] = useState('dark');
   const [language, setLanguage] = useState('VI');
   const navigate = useNavigate();
@@ -65,7 +67,6 @@ export default function Home() {
     setCountries(responce.data);
     // debugger
     setLoading(false);
-
   }
 
   if (loading)
@@ -76,11 +77,12 @@ export default function Home() {
         <Layout>
          <Menus/>
           <Content>
-            <div><Input countries={countries} /></div>
+            <div><Input countries={countries} onSubmit={setCountry} /></div>
             {/* {<Lists data={countries} />} */}
-            <Tables/>
+            <Tables countries={countries}/>
           </Content>
-          <Footer>Footer</Footer>
+          <BarCharts/>
+          <Footer>{country}</Footer>
         </Layout>
       </div>
     )
