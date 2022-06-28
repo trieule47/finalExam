@@ -1,45 +1,87 @@
-import { AutoComplete } from 'antd';
-import { useState } from 'react';
+// import { AutoComplete } from 'antd';
+// import { useState } from 'react';
 
-const Input = (props) => {
-  const [value, setValue] = useState('');
-  const [options, setOptions] = useState([]);
-//   const contries = ['abc','tra','la','bbc'];
+// const Input = (props) => {
+//   const [value, setValue] = useState('');
+//   const [options, setOptions] = useState([]);
+// //   const contries = ['abc','tra','la','bbc'];
 
-  const onSearch = (searchText) => {
-    let newContries =[];
-    newContries = props.countries.filter((country) => country.country.includes(searchText))
-    const newNameContries = newContries.map((e)=>{return {value: e.country}})
-    setOptions(
-      newNameContries,
-    );
+//   const onSearch = (searchText) => {
+//     let newContries =[];
+//     newContries = props.countries.filter((country) => country.country.toLowerCase().includes(searchText.toLowerCase()))
+//     const newNameContries = newContries.map((e)=>{return {value: e.country}})
+//     setOptions(
+//       newNameContries,
+//     );
+//   };
+
+//   const onSelect = (data) => {
+//     console.log('onSelect navigate(/country/', data);
+
+//   };
+
+//   const onChange = (data) => {
+//     setValue(data);
+//   };
+
+//   return (
+//     <>
+//       <br />
+//       <AutoComplete
+//         value={value}
+//         options={options}
+//         style={{
+//           width: 200,
+//         }}
+//         onSelect={onSelect}
+//         onSearch={onSearch}
+//         onChange={onChange}
+//         placeholder="control mode"
+//       />
+//     </>
+//   );
+// };
+
+// export default Input;
+import React,{ useRef } from 'react';
+import { Select } from 'antd';
+const { Option } = Select;
+
+console.log("input generate")
+const App = React.memo((props) => {
+  console.log("input change")
+  const typingTimeputRef = useRef(null);
+  const onChange = (value) => {
+    props.onSubmit(value);
+    console.log(`selected ${value}`);//navigate tới detail country
   };
 
-  const onSelect = (data) => {
-    console.log('onSelect navigate(/country/', data);
+  const onSearch = (value) => {
 
-  };
+    if (typingTimeputRef.current) {
+      clearTimeout(typingTimeputRef.current);
+    };
 
-  const onChange = (data) => {
-    setValue(data);
+    typingTimeputRef.current = setTimeout(() => {
+      console.log('search:', value);
+    }, 1000);
   };
 
   return (
-    <>
-      <br />
-      <AutoComplete
-        value={value}
-        options={options}
-        style={{
-          width: 200,
-        }}
-        onSelect={onSelect}
-        onSearch={onSearch}
-        onChange={onChange}
-        placeholder="control mode"
-      />
-    </>
-  );
-};
+    <Select
+      style={{ width: 200 }}
+      showSearch
+      placeholder="Select a person"
+      optionFilterProp="children"
+      onChange={onChange}
+      // onSearch={onSearch}
+      filterOption={(input, option) => option.value.toLowerCase().includes(input.toLowerCase())}
+    >
+      {props.countries.map((country) => {
+        return <Option value={country.country} key={country.country}><img src={country.countryInfo.flag} style={{ width: 20, height: 20 }} />{country.country}</Option>
+      })}
+    </Select>
+  )
+});
 
-export default Input;
+export default App;
