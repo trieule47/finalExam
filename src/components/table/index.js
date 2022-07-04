@@ -1,5 +1,5 @@
-import { Button, Space, Table } from 'antd';
-import React, { useState } from 'react';
+import { Button, Space, Table } from 'antd'
+import React, { useState } from 'react'
 const data = [
   {
     key: '1',
@@ -7,8 +7,8 @@ const data = [
     cases: 3210,
     recovered: 1234,
     deaths: 10,
-    countryInfo:{
-      flag: "https://disease.sh/assets/img/flags/af.png"
+    countryInfo: {
+      flag: 'https://disease.sh/assets/img/flags/af.png'
     }
   },
   {
@@ -17,8 +17,8 @@ const data = [
     cases: 3210,
     recovered: 1234,
     deaths: 10,
-    countryInfo:{
-      flag: "https://disease.sh/assets/img/flags/af.png"
+    countryInfo: {
+      flag: 'https://disease.sh/assets/img/flags/af.png'
     }
   },
   {
@@ -27,8 +27,8 @@ const data = [
     cases: 33210,
     recovered: 31234,
     deaths: 100,
-    countryInfo:{
-      flag: "https://disease.sh/assets/img/flags/af.png"
+    countryInfo: {
+      flag: 'https://disease.sh/assets/img/flags/af.png'
     }
   },
   {
@@ -37,8 +37,8 @@ const data = [
     cases: 13210,
     recovered: 21234,
     deaths: 10,
-    countryInfo:{
-      flag: "https://disease.sh/assets/img/flags/af.png"
+    countryInfo: {
+      flag: 'https://disease.sh/assets/img/flags/af.png'
     }
   },
   {
@@ -47,8 +47,8 @@ const data = [
     cases: 3210,
     recovered: 1234,
     deaths: 10,
-    countryInfo:{
-      flag: "https://disease.sh/assets/img/flags/af.png"
+    countryInfo: {
+      flag: 'https://disease.sh/assets/img/flags/af.png'
     }
   },
   {
@@ -57,8 +57,8 @@ const data = [
     cases: 3210,
     recovered: 1234,
     deaths: 10,
-    countryInfo:{
-      flag: "https://disease.sh/assets/img/flags/af.png"
+    countryInfo: {
+      flag: 'https://disease.sh/assets/img/flags/af.png'
     }
   },
   {
@@ -67,8 +67,8 @@ const data = [
     cases: 33210,
     recovered: 31234,
     deaths: 100,
-    countryInfo:{
-      flag: "https://disease.sh/assets/img/flags/af.png"
+    countryInfo: {
+      flag: 'https://disease.sh/assets/img/flags/af.png'
     }
   },
   {
@@ -77,8 +77,8 @@ const data = [
     cases: 13210,
     recovered: 21234,
     deaths: 10,
-    countryInfo:{
-      flag: "https://disease.sh/assets/img/flags/af.png"
+    countryInfo: {
+      flag: 'https://disease.sh/assets/img/flags/af.png'
     }
   },
   {
@@ -87,8 +87,8 @@ const data = [
     cases: 3210,
     recovered: 1234,
     deaths: 10,
-    countryInfo:{
-      flag: "https://disease.sh/assets/img/flags/af.png"
+    countryInfo: {
+      flag: 'https://disease.sh/assets/img/flags/af.png'
     }
   },
   {
@@ -97,8 +97,8 @@ const data = [
     cases: 3210,
     recovered: 1234,
     deaths: 10,
-    countryInfo:{
-      flag: "https://disease.sh/assets/img/flags/af.png"
+    countryInfo: {
+      flag: 'https://disease.sh/assets/img/flags/af.png'
     }
   },
   {
@@ -107,8 +107,8 @@ const data = [
     cases: 33210,
     recovered: 31234,
     deaths: 100,
-    countryInfo:{
-      flag: "https://disease.sh/assets/img/flags/af.png"
+    countryInfo: {
+      flag: 'https://disease.sh/assets/img/flags/af.png'
     }
   },
   {
@@ -117,38 +117,38 @@ const data = [
     cases: 13210,
     recovered: 21234,
     deaths: 10,
-    countryInfo:{
-      flag: "https://disease.sh/assets/img/flags/af.png"
+    countryInfo: {
+      flag: 'https://disease.sh/assets/img/flags/af.png'
     }
-  },
-];
+  }
+]
 
-const Tables = React.memo((props) => {
-  const [filteredInfo, setFilteredInfo] = useState({});
-  const [sortedInfo, setSortedInfo] = useState({});
+const Tables = React.memo(props => {
+  const [filteredInfo, setFilteredInfo] = useState({})
+  const [sortedInfo, setSortedInfo] = useState({})
 
   console.log('table genarate')
   const handleChange = (pagination, filters, sorter) => {
-    console.log('Various parameters', pagination, filters, sorter);
-    setFilteredInfo(filters);
-    setSortedInfo(sorter);
-  };
+    console.log('Various parameters', pagination, filters, sorter)
+    setFilteredInfo(filters)
+    setSortedInfo(sorter)
+  }
 
   const clearFilters = () => {
-    setFilteredInfo({});
-  };
+    setFilteredInfo({})
+  }
 
   const clearAll = () => {
-    setFilteredInfo({});
-    setSortedInfo({});
-  };
+    setFilteredInfo({})
+    setSortedInfo({})
+  }
 
   const setConfirmedSort = () => {
     setSortedInfo({
       order: 'descend',
-      columnKey: 'cases',
-    });
-  };
+      columnKey: 'cases'
+    })
+  }
 
   const columns = [
     {
@@ -161,10 +161,16 @@ const Tables = React.memo((props) => {
       ellipsis: true,
       render(text, record) {
         return {
-          children: <div>
-            <img src={record.countryInfo.flag} style={{ width: 20, height: 20 }}/>
-            {" "}{text}</div>
-        };
+          children: (
+            <div>
+              <img
+                src={record.countryInfo.flag}
+                style={{ width: 20, height: 20 }}
+              />{' '}
+              {text}
+            </div>
+          )
+        }
       }
     },
     {
@@ -174,7 +180,7 @@ const Tables = React.memo((props) => {
       filteredValue: filteredInfo.cases || null,
       sorter: (a, b) => a.cases - b.cases,
       sortOrder: sortedInfo.columnKey === 'cases' ? sortedInfo.order : null,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: 'Recovered',
@@ -183,32 +189,36 @@ const Tables = React.memo((props) => {
       filteredValue: filteredInfo.recovered || null,
       sorter: (a, b) => a.recovered - b.recovered,
       sortOrder: sortedInfo.columnKey === 'recovered' ? sortedInfo.order : null,
-      ellipsis: true,
+      ellipsis: true
     },
     {
-        title: 'Deaths',
-        dataIndex: 'deaths',
-        key: 'deaths', 
-        filteredValue: filteredInfo.deaths || null,
-        sorter: (a, b) => a.deaths - b.deaths,
-        sortOrder: sortedInfo.columnKey === 'deaths' ? sortedInfo.order : null,
-        ellipsis: true,
-      },
-  ];
+      title: 'Deaths',
+      dataIndex: 'deaths',
+      key: 'deaths',
+      filteredValue: filteredInfo.deaths || null,
+      sorter: (a, b) => a.deaths - b.deaths,
+      sortOrder: sortedInfo.columnKey === 'deaths' ? sortedInfo.order : null,
+      ellipsis: true
+    }
+  ]
   return (
     <>
       <Space
         style={{
-          marginBottom: 16,
+          marginBottom: 16
         }}
       >
         <Button onClick={setConfirmedSort}>Sort age</Button>
         <Button onClick={clearFilters}>Clear filters</Button>
         <Button onClick={clearAll}>Clear filters and sorters</Button>
       </Space>
-      <Table columns={columns} dataSource={props.countries} onChange={handleChange} />
+      <Table
+        columns={columns}
+        dataSource={props.countries}
+        onChange={handleChange}
+      />
     </>
-  );
-});
+  )
+})
 
-export default Tables;
+export default Tables

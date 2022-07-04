@@ -43,29 +43,28 @@
 // };
 
 // export default Input;
-import React,{ useRef } from 'react';
-import { Select } from 'antd';
-const { Option } = Select;
+import React, { useRef } from 'react'
+import { Select } from 'antd'
+const { Option } = Select
 
-console.log("input generate")
-const App = React.memo((props) => {
-  console.log("input change")
-  const typingTimeputRef = useRef(null);
-  const onChange = (value) => {
-    props.onSubmit(value);
-    console.log(`selected ${value}`);//navigate tới detail country
-  };
+console.log('input generate')
+const App = React.memo(props => {
+  console.log('input change')
+  const typingTimeputRef = useRef(null)
+  const onChange = value => {
+    props.onSubmit(value)
+    console.log(`selected ${value}`) //navigate tới detail country
+  }
 
-  const onSearch = (value) => {
-
+  const onSearch = value => {
     if (typingTimeputRef.current) {
-      clearTimeout(typingTimeputRef.current);
-    };
+      clearTimeout(typingTimeputRef.current)
+    }
 
     typingTimeputRef.current = setTimeout(() => {
-      console.log('search:', value);
-    }, 1000);
-  };
+      console.log('search:', value)
+    }, 1000)
+  }
 
   return (
     <Select
@@ -75,13 +74,23 @@ const App = React.memo((props) => {
       optionFilterProp="children"
       onChange={onChange}
       // onSearch={onSearch}
-      filterOption={(input, option) => option.value.toLowerCase().includes(input.toLowerCase())}
+      filterOption={(input, option) =>
+        option.value.toLowerCase().includes(input.toLowerCase())
+      }
     >
-      {props.countries.map((country) => {
-        return <Option value={country.country} key={country.country}><img src={country.countryInfo.flag} style={{ width: 20, height: 20 }} />{country.country}</Option>
+      {props.countries.map(country => {
+        return (
+          <Option value={country.country} key={country.country}>
+            <img
+              src={country.countryInfo.flag}
+              style={{ width: 20, height: 20 }}
+            />
+            {country.country}
+          </Option>
+        )
       })}
     </Select>
   )
-});
+})
 
-export default App;
+export default App
