@@ -11,9 +11,9 @@ export default function PrivateRoute(props) {
   if (LoginStatus())
     return (
       <div>
-        PrivateRoute
+       {/* </div> PrivateRoute
         <ModalApp />
-        <button onClick={handleClick}>log out</button>
+        <button onClick={handleClick}>log out</button> */}
         {props.children}
       </div>
     )

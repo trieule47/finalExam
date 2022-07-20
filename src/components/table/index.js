@@ -1,131 +1,12 @@
-import { Button, Space, Table } from 'antd'
 import React, { useState } from 'react'
-const data = [
-  {
-    key: '1',
-    country: 'John Brown',
-    cases: 3210,
-    recovered: 1234,
-    deaths: 10,
-    countryInfo: {
-      flag: 'https://disease.sh/assets/img/flags/af.png'
-    }
-  },
-  {
-    key: '2',
-    country: 'Jim Green',
-    cases: 3210,
-    recovered: 1234,
-    deaths: 10,
-    countryInfo: {
-      flag: 'https://disease.sh/assets/img/flags/af.png'
-    }
-  },
-  {
-    key: '3',
-    country: 'Joe Black',
-    cases: 33210,
-    recovered: 31234,
-    deaths: 100,
-    countryInfo: {
-      flag: 'https://disease.sh/assets/img/flags/af.png'
-    }
-  },
-  {
-    key: '4',
-    country: 'Jim Red',
-    cases: 13210,
-    recovered: 21234,
-    deaths: 10,
-    countryInfo: {
-      flag: 'https://disease.sh/assets/img/flags/af.png'
-    }
-  },
-  {
-    key: '5',
-    country: 'John Brown',
-    cases: 3210,
-    recovered: 1234,
-    deaths: 10,
-    countryInfo: {
-      flag: 'https://disease.sh/assets/img/flags/af.png'
-    }
-  },
-  {
-    key: '6',
-    country: 'Jim Green',
-    cases: 3210,
-    recovered: 1234,
-    deaths: 10,
-    countryInfo: {
-      flag: 'https://disease.sh/assets/img/flags/af.png'
-    }
-  },
-  {
-    key: '7',
-    country: 'Joe Black',
-    cases: 33210,
-    recovered: 31234,
-    deaths: 100,
-    countryInfo: {
-      flag: 'https://disease.sh/assets/img/flags/af.png'
-    }
-  },
-  {
-    key: '8',
-    country: 'Jim Red',
-    cases: 13210,
-    recovered: 21234,
-    deaths: 10,
-    countryInfo: {
-      flag: 'https://disease.sh/assets/img/flags/af.png'
-    }
-  },
-  {
-    key: '9',
-    country: 'John Brown',
-    cases: 3210,
-    recovered: 1234,
-    deaths: 10,
-    countryInfo: {
-      flag: 'https://disease.sh/assets/img/flags/af.png'
-    }
-  },
-  {
-    key: '10',
-    country: 'Jim Green',
-    cases: 3210,
-    recovered: 1234,
-    deaths: 10,
-    countryInfo: {
-      flag: 'https://disease.sh/assets/img/flags/af.png'
-    }
-  },
-  {
-    key: '11',
-    country: 'Joe Black',
-    cases: 33210,
-    recovered: 31234,
-    deaths: 100,
-    countryInfo: {
-      flag: 'https://disease.sh/assets/img/flags/af.png'
-    }
-  },
-  {
-    key: '12',
-    country: 'Jim Red',
-    cases: 13210,
-    recovered: 21234,
-    deaths: 10,
-    countryInfo: {
-      flag: 'https://disease.sh/assets/img/flags/af.png'
-    }
-  }
-]
+import { Space, Table } from 'antd'
+import { useTranslation } from 'react-i18next'
+import i18n from '../../translation/i18n'
 
 const Tables = React.memo(props => {
   const [filteredInfo, setFilteredInfo] = useState({})
   const [sortedInfo, setSortedInfo] = useState({})
+  const { t } = useTranslation()
 
   console.log('table genarate')
   const handleChange = (pagination, filters, sorter) => {
@@ -134,30 +15,11 @@ const Tables = React.memo(props => {
     setSortedInfo(sorter)
   }
 
-  const clearFilters = () => {
-    setFilteredInfo({})
-  }
-
-  const clearAll = () => {
-    setFilteredInfo({})
-    setSortedInfo({})
-  }
-
-  const setConfirmedSort = () => {
-    setSortedInfo({
-      order: 'descend',
-      columnKey: 'cases'
-    })
-  }
-
   const columns = [
     {
-      title: 'Country',
+      title: [<div>{t('content.country')}</div>],
       dataIndex: 'country',
       key: 'country',
-      // filteredValue: filteredInfo.country || null,
-      // sorter: (a, b) => a.country - b.country,
-      // sortOrder: sortedInfo.columnKey === 'country' ? sortedInfo.order : null,
       ellipsis: true,
       render(text, record) {
         return {
@@ -174,7 +36,7 @@ const Tables = React.memo(props => {
       }
     },
     {
-      title: 'Confirmed',
+      title: [<div>{t('content.confirmed')}</div>],
       dataIndex: 'cases',
       key: 'cases',
       filteredValue: filteredInfo.cases || null,
@@ -183,7 +45,7 @@ const Tables = React.memo(props => {
       ellipsis: true
     },
     {
-      title: 'Recovered',
+      title: [<div>{t('content.recovered')}</div>],
       dataIndex: 'recovered',
       key: 'recovered',
       filteredValue: filteredInfo.recovered || null,
@@ -192,7 +54,7 @@ const Tables = React.memo(props => {
       ellipsis: true
     },
     {
-      title: 'Deaths',
+      title: [<div>{t('content.deaths')}</div>],
       dataIndex: 'deaths',
       key: 'deaths',
       filteredValue: filteredInfo.deaths || null,
@@ -208,9 +70,7 @@ const Tables = React.memo(props => {
           marginBottom: 16
         }}
       >
-        <Button onClick={setConfirmedSort}>Sort age</Button>
-        <Button onClick={clearFilters}>Clear filters</Button>
-        <Button onClick={clearAll}>Clear filters and sorters</Button>
+
       </Space>
       <Table
         columns={columns}

@@ -68,9 +68,10 @@ const App = React.memo(props => {
 
   return (
     <Select
-      style={{ width: 200 }}
+      style={{ width: '100vw' }}
+      size={'large'}
       showSearch
-      placeholder="Select a person"
+      placeholder="Select a country"
       optionFilterProp="children"
       onChange={onChange}
       // onSearch={onSearch}
@@ -80,12 +81,12 @@ const App = React.memo(props => {
     >
       {props.countries.map(country => {
         return (
-          <Option value={country.country} key={country.country}>
+          <Option value={country.countryInfo.iso2} key={country.country}>
             <img
               src={country.countryInfo.flag}
               style={{ width: 20, height: 20 }}
             />
-            {country.country}
+            _{country.country}
           </Option>
         )
       })}

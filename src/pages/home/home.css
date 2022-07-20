@@ -1,5 +1,16 @@
-@media screen and (max-width: 900px) {
+.ant-layout{
+  padding: 10px;
+}
+.dark{
+  background-color: rgb(54, 63, 71);
+  color: white;
+}
+.light{
+  background-color: aliceblue;;
+  color: black
+}
+/* @media screen and (max-width: 900px) {
   .ant-layout{
     padding: 10px;
   }
-}
+} */

@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { CloseOutlined, MenuOutlined } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
-import './index.css'
+import './nav.css';
 import { useNavigate } from 'react-router-dom'
 import i18n from '../../translation/i18n'
-import { Select, Switch } from 'antd'
+import { Select, Switch, Button } from 'antd'
+import LoginStatus from '../../util/LoginStatus'
+
 const { Option } = Select
 
-const Navbar = () => {
+const Navbar = (props) => {
   const [isMobile, setIsMobile] = useState(false)
   const { t } = useTranslation()
   const [theme, setTheme] = useState('dark')
@@ -22,15 +24,20 @@ const Navbar = () => {
   useEffect(() => {
     const Lg = localStorage.getItem('language')
     if (Lg) setLanguage(Lg)
+    
   })
 
   useEffect(() => {
     const Th = localStorage.getItem('theme')
-    if (Th) setTheme(Th)
+    if (Th) {
+      setTheme(Th)
+      props.theme(Th)
+    }
   })
 
   const changeTheme = value => {
     setTheme(value ? 'dark' : 'light')
+    props.theme(value ? 'dark' : 'light')
     localStorage.setItem('theme', value ? 'dark' : 'light')
   }
 
@@ -44,7 +51,11 @@ const Navbar = () => {
     <nav className="navbar">
       <h3 className="logo">Logo</h3>
       <ul className={isMobile ? 'nav-links-mobile' : 'nav-links'}>
-        <Link to="/" className="home" onClick={() => setIsMobile(!isMobile)}>
+        <Link
+          to="/"
+          className="home"
+          onClick={() => setIsMobile(!isMobile)}
+        >
           <li>{t('content.home')}</li>
         </Link>
         <Link
@@ -54,20 +65,35 @@ const Navbar = () => {
         >
           <li>{t('content.news')}</li>
         </Link>
-        <Link
-          to="/login"
-          className="signin"
-          onClick={() => setIsMobile(!isMobile)}
-        >
-          <li>{t('content.login')}</li>
-        </Link>
-        <Link
-          to="/signup"
-          className="signup"
-          onClick={() => setIsMobile(!isMobile)}
-        >
-          <li>{t('content.signup')}</li>
-        </Link>
+        {
+          !LoginStatus() ?
+            <>        
+              <Link
+                to="/login"
+                className="signin"
+                onClick={() => setIsMobile(!isMobile)}
+              >
+                <li>{t('content.login')}</li>
+              </Link>
+              <Link
+                to="/signup"
+                className="signup"
+                onClick={() => setIsMobile(!isMobile)}
+              >
+                <li>{t('content.signup')}</li>
+              </Link>
+            </> : <Link
+              to="/news"
+              className="signup"
+              onClick={() => {
+                setIsMobile(!isMobile);
+                localStorage.setItem('isLogin', false)
+              }}
+            >
+              <li>{t('content.logout')}</li>
+            </Link>
+        }
+
         <div className="home">
           <Select
             value={language}
