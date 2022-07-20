@@ -1,0 +1,9 @@
+.btn{
+  width: 150px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #005469;
+}
+form>.ant-input, form>.ant-input-password{
+  margin: 10px;
+}

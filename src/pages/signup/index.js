@@ -1,30 +1,45 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Layout } from 'antd'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
-import { Input, Button } from 'antd'
+import { Input, Button, message } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-
+import './signup.css'
 const { Header, Footer, Sider, Content } = Layout
+const key = 'updatable'
 
-export default function SignUp() {
+export default function SignUp(props) {
   const navigate = useNavigate()
+  
+  function handleSignUp(user) {
+    var userList = JSON.parse(localStorage.getItem('users'))
+    if(userList != null) {
+      userList = [...userList, user]
+    } else{
+      userList = [user]
+    }
+    localStorage.setItem('users', JSON.stringify(userList))
+    openMessage()
+    navigate('/login');
+  }
 
-  const handleSetLogin = value => {
-    localStorage.setItem('isLogin', true)
-    const users = localStorage.getItem('users')
-    if (users != '')
-      localStorage.setItem(
-        'users',
-        JSON.stringify([...JSON.parse(users), value])
-      )
-    else localStorage.setItem('users', JSON.stringify(value))
-    navigate('/')
+  const openMessage = () => {
+    message.loading({
+      content: 'Loading...',
+      key
+    })
+    setTimeout(() => {
+      message.success({
+        content: 'Đăng ký thành công!',
+        key,
+        duration: 2
+      })
+    }, 1000)
   }
 
   const SignupSchema = Yup.object().shape({
-    userName: Yup.string()
+    username: Yup.string()
       .min(2, 'Too Short!')
       .max(50, 'Too Long!')
       .required('Required'),
@@ -37,18 +52,19 @@ export default function SignUp() {
 
   return (
     <div
+      className={props.theme}
       style={{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh'
+        height: '90vh'
       }}
     >
       <h1>Signup</h1>
       <Formik
         initialValues={{
-          userName: '',
+          username: '',
           email: '',
           password: ''
         }}
@@ -56,7 +72,7 @@ export default function SignUp() {
         onSubmit={values => {
           // same shape as initial values
           console.log(values)
-          handleSetLogin(values)
+          handleSignUp(values)
         }}
       >
         {({ errors, touched }) => (
@@ -69,17 +85,17 @@ export default function SignUp() {
             }}
           >
             <Field
-              name="userName"
+              name="username"
               render={({ field }) => (
                 <Input
-                  type="userName"
+                  type="username"
                   {...field}
                   placeholder="Enter username"
                 />
               )}
             />
-            {errors.userName && touched.userName ? (
-              <div>{errors.userName}</div>
+            {errors.username && touched.username ? (
+              <div>{errors.username}</div>
             ) : null}
             <Field
               name="email"
@@ -103,7 +119,8 @@ export default function SignUp() {
             {errors.password && touched.password ? (
               <div>{errors.password}</div>
             ) : null}
-            <button type="submit">Submit</button>
+            <button className='btn' type="submit">Sign up</button>
+            <button className='btn' type="submit" onClick={() => {navigate('/login')}}>Login</button>
           </Form>
         )}
       </Formik>
