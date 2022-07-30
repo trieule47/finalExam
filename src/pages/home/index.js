@@ -7,19 +7,34 @@ import Input from '../../components/input'
 import Tables from '../../components/table'
 import BarCharts from '../../components/barchart'
 import OverView from '../../components/overView'
-import LineCharts from '../../components/lineChart';
+import LineCharts from '../../components/lineChart'
+import HighMaps from '../../components/hightMap.js'
 import './home.css'
 // import GlobalChart from '../../components/globalChart/globalChart'
 
 const { Header, Footer, Sider, Content } = Layout
 const { Option } = Select
+const getMapData = (countryId) =>
+import(
+  // `@highcharts/map-collection/countries/${countryId}/${countryId}-all.geo.json`
+  '@highcharts/map-collection/custom/world.geo.json'
+);
 
 export default function Home(props) {
   const [countries, setCountries] = useState('')
   const [overview, setOverview] = useState('')
   const [loading, setLoading] = useState('true')
+  const [mapData, setMapData] = useState({});
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+      getMapData()
+        .then((res) => {
+          setMapData(res);
+        })
+        .catch((err) => console.log({ err }));
+  }, [])
 
   useEffect(() => {
     setLoading(true)
@@ -30,7 +45,8 @@ export default function Home(props) {
   const handleCallProducts = async () => {
     const url = 'https://disease.sh/v3/covid-19/countries'
     const responce = await axios.get(url)
-    setCountries(responce.data)
+    .then((responce)=> setCountries(responce.data))
+    .catch((err) => console.log({ err }))
     // debugger
     // setLoading(false);
   }
@@ -80,30 +96,30 @@ export default function Home(props) {
                 <Tables countries={countries} className={props.theme}/>
               </Col>
               <Col  
-                xs={{ span:24 }} 
-                sm={{ span:24}}
-                md={{ span:12 }}>
+                xs={{ span: 24 }} 
+                sm={{ span: 24 }}
+                md={{ span: 12 }}>
                 <Card
                   className={props.theme}
-                  title={'Barchart'}
+                  title={'Map Chart covid 19 overview'}
                   style={{
                     minWidth: 300,
                     minHeight: 400,
                     justifyContent: 'center'
                   }}
                 >
-                  <div style={{ height: '50vw', marginBottom: '40px' }}><BarCharts /></div>
+                  <div style={{  }}><HighMaps mapData={mapData} countries={countries} /></div>
                 </Card>
                 <Card
                   className={props.theme}
-                  title={'Linechart'}
+                  title={'Linechart covid 19 overview'}
                   style={{
                     minWidth: 300,
                     minHeight: 400,
                     justifyContent: 'center'
                   }}
                 >
-                  <div style={{ height: '50vw' }}><LineCharts className={props.theme}/></div>
+                  <div style={{ height: '50vh' }}><LineCharts className={props.theme}/></div>
                 </Card>
               </Col>
             </Row>
@@ -121,7 +137,7 @@ export default function Home(props) {
                 xxl: 2
               }}
             >
-              helllo
+              design
             {/* <GlobalChart/> */}
             </Row>
           </Footer>

@@ -1,14 +1,14 @@
 import { Button, message } from 'antd'
 const key = 'updatable'
 
-const openMessage = () => {
+const openMessage = ({content}) => {
   message.loading({
     content: 'Loading...',
     key
   })
   setTimeout(() => {
     message.success({
-      content: 'Đăng ký thành công!',
+      content: {content},
       key,
       duration: 2
     })

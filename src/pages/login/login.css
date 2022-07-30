@@ -1,5 +1,5 @@
 .btn{
-  width: 150px;
+  width: 100px;
   padding: 10px;
   margin: 10px;
   background-color: #005469;
@@ -8,4 +8,24 @@
 }
 form>.ant-input, form>.ant-input-password{
   margin: 10px;
+}
+
+form .ant-input{
+  font-size: 24px;
+}
+
+.formik {
+  display: 'flex';
+  flex-direction: column;
+  width: 40vw;
+  align-items: 'center';
+}
+
+@media screen and (max-width: 500px) {
+  .formik {
+    display: 'flex';
+    flex-direction: column;
+    width: 80vw;
+    align-items: 'center';  
+  }
 }

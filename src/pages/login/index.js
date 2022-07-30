@@ -4,7 +4,6 @@ import * as Yup from 'yup'
 import { Input, Button, message } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-import ModalApp from '../../components/modal'
 import Message from '../../components/message'
 import './login.css'
 const key = 'updatable'
@@ -21,14 +20,14 @@ const ValidationSchemaExample = (props) => {
   }
   const handleLogin = async (user) => {
     const us = await getUsers();
-    if (user.username == 'admin' && user.password == 'admin' || us.find((e) =>
-      e.username == user.username && e.password == user.password
-    )) {
-      openMessage()
-      localStorage.setItem('isLogin', true)
-      navigate('/');
-    } else {
-      alert('sign in error! try another account');
+      if(user.username == 'admin' && user.password == 'admin' || us !== null && us.find((e) =>
+          e.username == user.username && e.password == user.password)){
+            openMessage()
+            localStorage.setItem('isLogin', true)
+            navigate('/');
+          }
+    else{
+      alert('try again')
     }
   }
 
@@ -41,21 +40,21 @@ const ValidationSchemaExample = (props) => {
       message.success({
         content: 'Đăng nhập thành công!',
         key,
-        duration: 1
+        duration: 2
       })
-    }, 1000)
+    }, 300)
   }
 
   const SignupSchema = Yup.object().shape({
     username: Yup.string()
       .min(2, 'Too Short!')
       .max(50, 'Too Long!')
-      .required('Required'),
+      .required('*Please fill your username'),
     // email: Yup.string().email('Invalid email').required('Required'),
     password: Yup.string()
       .min(2, 'Too Short!')
       .max(50, 'Too Long!')
-      .required('Required')
+      .required('*Please fill your password')
   })
 
   return (
@@ -84,12 +83,7 @@ const ValidationSchemaExample = (props) => {
       >
         {({ errors, touched }) => (
           <Form
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '40vw',
-              alignItems: 'center'
-            }}
+            className='formik'
           >
             <Field
               name="username"

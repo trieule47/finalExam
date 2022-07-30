@@ -99,7 +99,7 @@ const OverView = props => {
                 md={{ span:12 }}>
           <Card
             title={
-              <div style={{ color: 'white'}}>
+              <div style={{ color: 'black'}}>
                 {t('content.fatalityRate')}
               </div>
             }
@@ -124,7 +124,7 @@ const OverView = props => {
                 md={{ span:12 }}>
           <Card
             title={
-              <div style={{ color: 'white'}}>
+              <div style={{ color: 'black'}}>
                 {t('content.recoveryRate')}
               </div>
             }

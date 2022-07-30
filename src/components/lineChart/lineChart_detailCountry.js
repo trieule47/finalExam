@@ -11,7 +11,7 @@ import {
 } from 'recharts'
 import axios from 'axios';
 
-const LineCharts = () => {
+const LineCharts = ({iso2}) => {
   const [covidInfo, setCovidInfo] = useState([]);
   const [covid19, setCovid19] = useState([]);
   const [reportType, setReportType] = useState('all')
@@ -20,13 +20,13 @@ const LineCharts = () => {
   }, [])
 
   const handleCallAllCovidInfo = async () => {
-    const responce = await axios.get('https://disease.sh/v3/covid-19/historical/all?lastdays=all')
-    setCovidInfo(responce.data)
-    let l = Object.keys(responce.data.cases).length
-    const day = Object.keys(responce.data.cases);
-    const cases = Object.values(responce.data.cases);
-    const deaths = Object.values(responce.data.deaths);
-    const recovered = Object.values(responce.data.recovered);
+    const responce = await axios.get(`https://disease.sh/v3/covid-19/historical/${iso2}?lastdays=all`)
+    setCovidInfo(responce.data.timeline)
+    let l = Object.keys(responce.data.timeline.cases).length
+    const day = Object.keys(responce.data.timeline.cases);
+    const cases = Object.values(responce.data.timeline.cases);
+    const deaths = Object.values(responce.data.timeline.deaths);
+    const recovered = Object.values(responce.data.timeline.recovered);
     const covid = [];
     for (let i = 0; i < l; i++) {
       covid.push({ name: day[i], cases: cases[i], deaths: deaths[i], recovered: recovered[i] })

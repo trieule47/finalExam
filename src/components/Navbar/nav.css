@@ -14,7 +14,12 @@
 }
 
 .logo{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
     font-size: 30px;
+    color: rgb(140, 235, 235);
 }
 
 .nav-links {

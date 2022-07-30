@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import './nav.css';
 import { useNavigate } from 'react-router-dom'
 import i18n from '../../translation/i18n'
-import { Select, Switch, Button } from 'antd'
+import { Select, Switch, message } from 'antd'
 import LoginStatus from '../../util/LoginStatus'
 
 const { Option } = Select
@@ -16,6 +16,8 @@ const Navbar = (props) => {
   const [theme, setTheme] = useState('dark')
   const [language, setLanguage] = useState('vi')
   const navigate = useNavigate()
+
+  const key = 'updatable'
 
   useEffect(() => {
     i18n.changeLanguage(language)
@@ -47,9 +49,36 @@ const Navbar = (props) => {
     localStorage.setItem('language', value === 'vi' ? 'vi' : 'en')
   }
 
+  const openMessage = () => {
+    message.loading({
+      content: 'Loading...',
+      key
+    })
+    setTimeout(() => {
+      message.success({
+        content: 'Đăng xuất thành công!',
+        key,
+        duration: 2
+      })
+    }, 500)
+  }
+
+  const handleLogout = () => {
+    setIsMobile(!isMobile);
+    localStorage.setItem('isLogin', false)
+    openMessage()
+  }
+
   return (
     <nav className="navbar">
-      <h3 className="logo">Logo</h3>
+      <h3 className="logo">
+        <img 
+          src="https://www.bhsbaltimore.org/wp-content/uploads/2020/04/COVID19-ICON.png" 
+          alt="covid" 
+          style={{ height:'40px', width: '40px' }}
+        />
+        Covid19<i>tracker</i>
+      </h3>
       <ul className={isMobile ? 'nav-links-mobile' : 'nav-links'}>
         <Link
           to="/"
@@ -85,10 +114,7 @@ const Navbar = (props) => {
             </> : <Link
               to="/news"
               className="signup"
-              onClick={() => {
-                setIsMobile(!isMobile);
-                localStorage.setItem('isLogin', false)
-              }}
+              onClick={handleLogout}
             >
               <li>{t('content.logout')}</li>
             </Link>

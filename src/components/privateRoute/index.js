@@ -1,7 +1,6 @@
 import React, { Children } from 'react'
 import { Navigate } from 'react-router-dom'
 import LoginStatus from '../../util/LoginStatus'
-import ModalApp from '../modal'
 
 export default function PrivateRoute(props) {
   const handleClick = () => {
@@ -11,9 +10,6 @@ export default function PrivateRoute(props) {
   if (LoginStatus())
     return (
       <div>
-       {/* </div> PrivateRoute
-        <ModalApp />
-        <button onClick={handleClick}>log out</button> */}
         {props.children}
       </div>
     )

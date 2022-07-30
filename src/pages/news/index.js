@@ -43,8 +43,6 @@ export default function News(props) {
   const LoadingMore = () => {
     const endOfPage = document.body.scrollHeight - window.innerHeight
     const currPosition = window.pageYOffset
-    
-    console.log('enddđ'+ endOfPage +' oo '+ currPosition)
     if( endOfPage === currPosition) {
       setPage(page + 1)
     }
@@ -61,8 +59,6 @@ export default function News(props) {
     else {
       setNews([...news, ...responce.data]) 
     }
-    console.log(news)
-    // debugger
     setLoading(false)
     setLoadMore(false)
   }
@@ -92,7 +88,7 @@ export default function News(props) {
                       title={item.title}
                       style={{
                         minWidth: 300,
-                        minHeight: 400,
+                        minHeight: 300,
                         justifyContent: 'center'
                       }}
                     >

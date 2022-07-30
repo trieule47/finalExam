@@ -35,19 +35,21 @@ export default function SignUp(props) {
         key,
         duration: 2
       })
-    }, 1000)
+    }, 500)
   }
 
   const SignupSchema = Yup.object().shape({
     username: Yup.string()
       .min(2, 'Too Short!')
       .max(50, 'Too Long!')
-      .required('Required'),
+      .required('*Please fill your username'),
     email: Yup.string().email('Invalid email').required('Required'),
     password: Yup.string()
       .min(2, 'Too Short!')
       .max(50, 'Too Long!')
-      .required('Required')
+      .matches(/([a-z])/, '*Password must contain lowercases')
+      .matches(/([0-9])/, '*Password must contain number')
+      .required('*Please fill your password')
   })
 
   return (
@@ -77,12 +79,13 @@ export default function SignUp(props) {
       >
         {({ errors, touched }) => (
           <Form
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '40vw',
-              alignItems: 'center'
-            }}
+            className='formik'
+            // style={{
+            //   display: 'flex',
+            //   flexDirection: 'column',
+            //   width: '40vw',
+            //   alignItems: 'center'
+            // }}
           >
             <Field
               name="username"
